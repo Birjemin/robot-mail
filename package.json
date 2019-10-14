@@ -1,0 +1,31 @@
+{
+		"name": "robot-mail",
+		"version": "0.0.1",
+		"author": "birjemin",
+		"description": "小机器人",
+		"keywords": [
+				"node.js",
+				"javascript"
+		],
+		"license": "MIT",
+		"contributors": [
+				{
+						"name": "birjemin",
+						"email": "birjemin@foxmail.com"
+				}
+		],
+		"scripts": {
+				"start": "node index.js"
+		},
+		"dependencies": {
+				"cheerio": "^1.0.0-rc.3",
+				"dotenv": "^8.1.0",
+				"ejs": "^2.7.1",
+				"nodemailer": "^6.3.0",
+				"superagent": "^5.1.0"
+		},
+		"devDependencies": {
+				"eslint": "^6.5.1",
+				"eslint-loader": "^3.0.2"
+		}
+}
