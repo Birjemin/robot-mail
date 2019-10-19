@@ -10,13 +10,18 @@
       <li style="list-style: none">风向：<span style="color: rgb(110, 109, 109)"><%= weather.wind %></span></li>
       <li style="list-style: none">限行：<span style="color: rgb(110, 109, 109)"><%= weather.limit %></span></li>
     </ul>
-    <h3 style="color: rgb(27, 34, 36)">每日一句</h3>
+    <h3 style="color: rgb(27, 34, 36)">一句鸡汤</h3>
     <% data.forEach(function(info) { %>
-    <ul style="border-bottom:1px rgb(110, 109, 109) solid; margin: 10px 6px;">
+    <ul>
       <li style="list-style: none"><img height="240px" src="<%= info.url %>"></li>
       <li style="list-style: none">日期：<span style="color:rgb(110, 109, 109)"><%= info.dom %> <%= info.may %></span></li>
-      <li style="list-style: none">一个：<span style="color:rgb(110, 109, 109)"><%= info.text %></span></li>
+      <li style="list-style: none">一句：<span style="color:rgb(110, 109, 109)"><%= info.text %></span></li>
     </ul>
     <% }); %>
+    <h3 style="color: rgb(27, 34, 36)">一个冷知识</h3>
+    <ul style="border-bottom:1px rgb(110, 109, 109) solid;">
+      <li style="list-style: none"><img height="240px" src="<%= trivia.url %>"></li>
+      <li style="list-style: none">一个：<span style="color:rgb(110, 109, 109)"><%= trivia.txt %></span></li>
+    </ul>
   </body>
 </html>

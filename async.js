@@ -9,9 +9,14 @@ const nodemailer = require('nodemailer')
 
 const oneUrl = 'http://wufazhuce.com/'
 const weatherUrl = 'https://tianqi.moji.com/weather/china/'
+const triviaUrl = 'http://www.lengdou.net/random'
 const people = JSON.parse(process.env.MAIL_TO)
 
-getOneData(oneUrl).then((oneData, err) => {
+
+Promise.all([
+  getOneData(oneUrl),
+  getTriviaData(triviaUrl)
+]).then((data, err) => {
   if (err) {
     return err
   }
@@ -33,7 +38,8 @@ getOneData(oneUrl).then((oneData, err) => {
         subject: process.env.MAIL_SUBJECT, // Subject line
         text: process.env.MAIL_TEXT, // plain text body
         html: getHtml({
-          data: oneData,
+          data: data[0],
+          trivia: data[1],
           weather: wetherData
         })
       }).then(res => {
@@ -80,6 +86,16 @@ async function getOneData(url) {
     })
   })
   return [data[0]]
+}
+
+async function getTriviaData(url) {
+  let res = await superagent.get(url)
+  let $ = cheerio.load(res.text)
+  let html = $('#topic_list .media .media-body')
+  return {
+    txt: html.find('.topic-content').text().trim().split('#', 2)[0],
+    url: html.find('.topic-img').find('a img').attr('src').trim(),
+  }
 }
 
 async function getWetherData(url) {
