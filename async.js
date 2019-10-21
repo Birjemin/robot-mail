@@ -44,7 +44,7 @@ Promise.all([
         })
       }).then(res => {
         let str = res.response
-        console.log(str + ' ' + timestampToDate(parseInt(str.slice(-10))))
+        console.log(str + ' ' + cnt.local + ' ' + timestampToDate(parseInt(str.slice(-10))))
       })
     })
   })
