@@ -85,13 +85,11 @@ async function getDu(url) {
 async function getBing(url) {
   let res = await superagent.get(url)
   res = JSON.parse(res.text)
-  if (res && res.status == 1) {
-    return {
-      txt: res.bing.copyright.replace('1920x1080', '1366x768'),
-      url: res.bing.url,
-    }
-  }
-  return {
+  return (res && res.status == 1) ?
+  {
+    txt: res.bing.copyright.replace('1920x1080', '1366x768'),
+    url: res.bing.url,
+  } : {
     txt: '历史图片：Chon湖上空的低空云，苏格兰特罗萨克斯 (© Alistair Dick/Alamy)',
     url: "http://s.cn.bing.net/th?id=OHR.SaltireClouds_ZH-CN0002027700_1366x768.jpg&rf=LaDigue_1366x768.jpg&pid=hp"
   }
