@@ -10,6 +10,11 @@
       <li style="list-style: none">风向：<span style="color: rgb(110, 109, 109)"><%= weather.wind %></span></li>
       <li style="list-style: none">限行：<span style="color: rgb(110, 109, 109)"><%= weather.limit %></span></li>
     </ul>
+    <h3 style="color: rgb(27, 34, 36)">今日必应</h3>
+    <ul>
+      <li style="list-style: none"><img height="300px" src="<%= bing.url %>"></li>
+      <li style="list-style: none">CopyRight：<span style="color:rgb(110, 109, 109)"><%= bing.txt %></span></li>
+    </ul>
     <h3 style="color: rgb(27, 34, 36)">一句鸡汤</h3>
     <% data.forEach(function(info) { %>
     <ul>
@@ -19,9 +24,13 @@
     </ul>
     <% }); %>
     <h3 style="color: rgb(27, 34, 36)">一个冷知识</h3>
-    <ul style="border-bottom:1px rgb(110, 109, 109) solid;">
+    <ul>
       <li style="list-style: none"><img height="240px" src="<%= trivia.url %>"></li>
       <li style="list-style: none">一个：<span style="color:rgb(110, 109, 109)"><%= trivia.txt %></span></li>
+    </ul>
+    <h3 style="color: rgb(27, 34, 36)">一句毒鸡汤</h3>
+    <ul border-bottom:1px rgb(110, 109, 109) solid;>
+      <li style="list-style: none">一句：<span style="color:rgb(110, 109, 109)"><%= du %></span></li>
     </ul>
   </body>
 </html>

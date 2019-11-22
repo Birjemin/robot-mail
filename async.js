@@ -10,12 +10,16 @@ const nodemailer = require('nodemailer')
 const oneUrl = 'http://wufazhuce.com/'
 const weatherUrl = 'https://tianqi.moji.com/weather/china/'
 const triviaUrl = 'http://www.lengdou.net/random'
+const duUrl = 'https://www.note52.com/api/soul/random'
+const bingUrl = 'https://api.no0a.cn/api/bing/0'
 const people = JSON.parse(process.env.MAIL_TO)
 
 
 Promise.all([
   getOneData(oneUrl),
-  getTriviaData(triviaUrl)
+  getTriviaData(triviaUrl),
+  getDu(duUrl),
+  getBing(bingUrl)
 ]).then((data, err) => {
   if (err) {
     return err
@@ -40,6 +44,8 @@ Promise.all([
         html: getHtml({
           data: data[0],
           trivia: data[1],
+          du: data[2],
+          bing: data[3],
           weather: wetherData
         })
       }).then(res => {
@@ -68,6 +74,27 @@ function timestampToDate(timestamp) {
 function getHtml(data) {
   let template = ejs.compile(fs.readFileSync(path.resolve(__dirname, "email.ejs"), "utf8"))
   return template(data)
+}
+
+async function getDu(url) {
+  let res = await superagent.get(url)
+  res = JSON.parse(res.text)
+  return res ? res.title : '清明节，应该回你的学校扫扫墓，因为那里埋葬了你的青春。'
+}
+
+async function getBing(url) {
+  let res = await superagent.get(url)
+  res = JSON.parse(res.text)
+  if (res && res.status == 1) {
+    return {
+      txt: res.bing.copyright.replace('1920x1080', '1366x768'),
+      url: res.bing.url,
+    }
+  }
+  return {
+    txt: '历史图片：Chon湖上空的低空云，苏格兰特罗萨克斯 (© Alistair Dick/Alamy)',
+    url: "http://s.cn.bing.net/th?id=OHR.SaltireClouds_ZH-CN0002027700_1366x768.jpg&rf=LaDigue_1366x768.jpg&pid=hp"
+  }
 }
 
 async function getOneData(url) {
