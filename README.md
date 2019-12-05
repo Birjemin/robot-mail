@@ -19,3 +19,5 @@ cp .env.example .env
 ```
 50 9 * * * cd /Users/birjemin/Developer/Node/robot-mail;/Users/birjemin/.nvm/versions/node/v10.16.0/bin/node async.js >> /Users/birjemin/Downloads/crontab.txt
 ```
+
+4. 感兴趣可以留下邮箱，我每天给你推送，如果哪一天没收到，那可能我还在睡觉。。。
