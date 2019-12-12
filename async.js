@@ -128,9 +128,11 @@ async function getWetherData(url) {
   let $ = cheerio.load(res.text)
   let info = $('.wrap .left')
   let weather = info.find('.wea_weather')
+  let weaalert = info.find('.wea_alert')
   let about = info.find('.wea_about')
   return {
     contry: $('#search .search .search_default').find('em').text(),
+    weaalert: weaalert.find('em').text(),
     temp: weather.find('em').text().concat('°'),
     weather: weather.find('b').text(),
     humidity: about.find('span').text().replace('湿度 ', ''),
