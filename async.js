@@ -11,7 +11,7 @@ const oneUrl = 'http://wufazhuce.com/'
 const weatherUrl = 'https://tianqi.moji.com/weather/china/'
 const triviaUrl = 'http://www.lengdou.net/random'
 const duUrl = 'https://www.note52.com/api/soul/random'
-const bingUrl = 'https://api.no0a.cn/api/bing/0'
+const bingUrl = 'https://cn.bing.com/HPImageArchive.aspx?format=js&idx=0&n=1'
 const people = JSON.parse(process.env.MAIL_TO)
 
 
@@ -54,6 +54,8 @@ Promise.all([
       })
     })
   })
+}, (data) => {
+  console.log(data)
 })
 
 function timestampToDate(timestamp) {
@@ -85,13 +87,13 @@ async function getDu(url) {
 async function getBing(url) {
   let res = await superagent.get(url)
   res = JSON.parse(res.text)
-  return (res && res.status == 1) ?
+  return (res && res.images && res.images[0]) ?
   {
-    txt: res.bing.copyright.replace('1920x1080', '1366x768'),
-    url: res.bing.url,
+    txt: res.images[0].copyright,
+    url: 'https://bing.com/' + res.images[0].url.replace(/1920x1080/g, '1366x768'),
   } : {
     txt: '历史图片：Chon湖上空的低空云，苏格兰特罗萨克斯 (© Alistair Dick/Alamy)',
-    url: "http://s.cn.bing.net/th?id=OHR.SaltireClouds_ZH-CN0002027700_1366x768.jpg&rf=LaDigue_1366x768.jpg&pid=hp"
+    url: 'http://s.cn.bing.net/th?id=OHR.SaltireClouds_ZH-CN0002027700_1366x768.jpg&rf=LaDigue_1366x768.jpg&pid=hp'
   }
 }
 
